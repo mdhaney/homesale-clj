@@ -1,12 +1,22 @@
 (ns homesale.core
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [homesale.routes :as routes]
+            [reagent.core :as reagent :refer [atom]]))
 
 (enable-console-print!)
 
-(defn app-page []
-  [:h1 "Hello"])
+
+(defn app-page [db]
+  (let [router (:router @db)
+        page (:current-page router)]
+    (if page
+      [page db]
+      [:h1 "404"])))
+
+; app state
+(def db (atom {}))
 
 (defn init! []
-  (reagent/render [app-page] (.getElementById js/document "app")))
+  (routes/app-routes db)
+  (reagent/render [app-page db] (.getElementById js/document "app")))
 
 (init!)

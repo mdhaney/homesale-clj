@@ -43,6 +43,7 @@ My development workflow is based on Lighttable.  And yes, I know I can improve t
 ## Changelog
 
 1. This version simply shows a "Hello" message and deploys correctly to Firebase.
+2. Added navigation
 
 
 
