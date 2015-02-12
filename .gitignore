@@ -1,3 +1,5 @@
+static/
+dist/
 target/
 lib/
 classes/

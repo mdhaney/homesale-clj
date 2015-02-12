@@ -54,7 +54,6 @@
                                         :repl false}}}}
 
   :aliases {"watch-html" ["fschange" "resources/public/*" "resource"]
-            "watch-all"  ["pdo" "cljsbuild" "auto" "dev," "less" "auto," "watch-html"]
-            "run-client" ["do" "cljsbuild" "once" "dev," "resource," "httpd" "3000"]
-            "dist" ["with-profile" "prod" "do" "cljsbuild" "once" "prod," "less" "once," "resource"]})
+            "watch-all"  ["pdo" "cljsbuild" "auto" "dev," "watch-html"]
+            "dist" ["with-profile" "prod" "do" "cljsbuild" "once" "prod," "resource"]})
 
