@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{#repl}}
+    <script type='text/javascript' id='lt_ws' src='http://localhost:50275/socket.io/lighttable/ws.js'></script>
+    {{/repl}}
+
+	<meta charset="utf-8" />
+	<title>Home Sale App</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/css/animate.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="app"></div>
+
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+
+    {{#scripts}}
+    <script{{#src}} src="{{src}}"{{/src}}>{{body}}</script>
+    {{/scripts}}
+
+</body>
+</html>
