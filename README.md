@@ -38,7 +38,7 @@ My development workflow is based on Lighttable.  And yes, I know I can improve t
 2. From a terminal, run `lein dist`.  This will publish all the files to the /dist folder of the project.
 3. Probably a good idea to check locally by loading localhost:3000/dist
 4. Publish to Firebase by running `firebase deploy` (make sure you set the correct firebase name in firebase.json)
-5. App should be available at `https://<firebasename>/firebaseapp.com`
+5. App should be available at `https://<firebasename>.firebaseapp.com`
 
 ## Changelog
 
