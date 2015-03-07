@@ -5,6 +5,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2816"]
                  [reagent "0.5.0-alpha3"]
+                 [cljsjs/firebase "2.1.2-1"]
                  [re-frame "0.2.0"]
                  [secretary "1.2.1"]]
 
@@ -21,15 +22,15 @@
   :cljsbuild {:builds {:dev {:source-paths ["src"]
                              :compiler {:output-to "static/js/main.js"
                                         :output-dir "static/js"
+                                        :main homesale.core
+                                        :asset-path "js"
                                         :optimizations :none
-                                        :pretty-print true
-                                        :source-map true}}
+                                        :source-map true
+                                        :source-map-timestamp true}}
                        :prod {:source-paths ["src"]
-                              :compiler {:externs  ["react/externs/react.js"
-                                                    "externs/firebase.ext.js"]
-                                         :preamble ["reagent/react.js"]
-                                         :output-to "dist/js/main.min.js"
+                              :compiler {:output-to "dist/js/main.min.js"
                                          :optimizations :advanced
+                                         :elide-asserts true
                                          :pretty-print  false}}}}
 
   :profiles {:dev
@@ -39,19 +40,14 @@
                          :target-path "static"
                          :update false
                          :skip-stencil [ #"resources/public/assets/.*" ]
-                         :extra-values {:scripts [{:src "assets/firebase.js"}
-                                                  {:src "http://fb.me/react-0.12.2.js"}
-                                                  {:src "js/goog/base.js"}
-                                                  {:src "js/main.js"}
-                                                  {:body "goog.require('homesale.core')"}]
+                         :extra-values {:scripts [{:src "js/main.js"}]
                                         :repl true}}}
              :prod
              {:resource {:resource-paths ["resources/public"]
                          :target-path "dist"
                          :update false
                          :skip-stencil [ #"resources/public/assets/.*" ]
-                         :extra-values {:scripts [{:src "assets/firebase.js"}
-                                                  {:src "js/main.min.js"}]
+                         :extra-values {:scripts [{:src "js/main.min.js"}]
                                         :repl false}}}}
 
   :aliases {"watch-html" ["fschange" "resources/public/*" "resource"]
