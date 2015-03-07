@@ -3,8 +3,9 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2665"]
-                 [reagent "0.5.0-alpha"]
+                 [org.clojure/clojurescript "0.0-2816"]
+                 [reagent "0.5.0-alpha3"]
+                 [re-frame "0.2.0"]
                  [secretary "1.2.1"]]
 
   :plugins [[lein-cljsbuild "1.0.4"]
@@ -32,7 +33,7 @@
                                          :pretty-print  false}}}}
 
   :profiles {:dev
-             {:dependencies [[lein-light-nrepl "0.1.0"]]
+             {:dependencies [[lein-light-nrepl "0.1.999"]]
               :repl-options {:nrepl-middleware [lighttable.nrepl.handler/lighttable-ops]}
               :resource {:resource-paths ["resources/public"]
                          :target-path "static"
