@@ -1,6 +1,9 @@
 (ns homesale.core
-  (:require [homesale.pages.home :refer [home-page]]
-            [homesale.pages.add-items :refer [add-items-page]]
+  (:require [homesale.server]
+            [homesale.queries]
+            [homesale.handlers]
+            [homesale.pages.home :refer [home-page]]
+            [homesale.pages.items :refer [items-page]]
             [homesale.ui.navbar :refer [navbar]]
             [secretary.core :as secretary :include-macros true :refer-macros [defroute]]
             [reagent.core :as reagent :refer [atom]]
@@ -17,7 +20,7 @@
 (secretary/set-config! :prefix "#")
 
 (defroute home-route "/" [] (dispatch [:show-page :home]))
-(defroute add-items-route "/items/add" [] (dispatch [:show-page :add-items]))
+(defroute items-route "/items" [] (dispatch [:show-page :items]))
 (defroute "*" [] (dispatch [:show-page nil]))
 
 
@@ -39,9 +42,9 @@
 (def pages {:home        {:render home-page
                           :text "Homesale"
                           :uri (home-route)}
-            :add-items   {:render add-items-page
-                          :text "Add Items"
-                          :uri (add-items-route)
+            :items       {:render items-page
+                          :text "Items"
+                          :uri (items-route)
                           :nav-order 1}})
 
 (defn app-page []
