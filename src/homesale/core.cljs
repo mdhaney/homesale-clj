@@ -4,6 +4,7 @@
             [homesale.ui.navbar :refer [navbar]]
             [secretary.core :as secretary :include-macros true :refer-macros [defroute]]
             [reagent.core :as reagent :refer [atom]]
+            [re-frame.core :refer [dispatch dispatch-sync]]
             [goog.events :as events]
             [goog.history.EventType :as EventType])
     (:import goog.History))
@@ -64,6 +65,7 @@
 
 (defn init! []
   (hook-browser-navigation!)
+  (dispatch-sync [:initialize-db])
   (reagent/render [app-page db] (.getElementById js/document "app")))
 
 (init!)
