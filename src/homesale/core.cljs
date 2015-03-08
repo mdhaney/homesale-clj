@@ -51,7 +51,7 @@
   (let [current-page (subscribe [:current-page])]
     (fn []
       (let [page-render (:render @current-page)]
-        [:div.container
+        [:div.container-fluid
          [navbar pages current-page]
          (if page-render
            [page-render]
