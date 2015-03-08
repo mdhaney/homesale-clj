@@ -7,8 +7,6 @@
 (def fb-url "https://haneyhome.firebaseio.com")
 (def base-ref (js/Firebase. fb-url))
 
-(def levels (atom {}))
-
 (defn child* [fbref & [path & paths]]
   (if-not path
     fbref
@@ -44,8 +42,13 @@
 
 (register-handler
  :initialize-db
- (fn [_ _]
-   {}))
+ (fn [db [_ pages]]
+   {:pages pages}))
+
+(register-handler
+ :show-page
+ (fn [db [_ page]]
+   (assoc db :current-page page)))
 
 (register-sub
  :sale-levels
@@ -54,12 +57,19 @@
                      (assoc v :key k))
                    (:sale-levels @db)))))
 
+(register-sub
+ :current-page
+ (fn [db _]
+   (let [pages (reaction (:pages @db))
+         current-page (reaction (:current-page @db))]
+     (reaction (get @pages @current-page)))))
+
 (defn sale-levels []
   (let [levels (subscribe [:sale-levels])]
     (fn []
       [:p (str @levels)])))
 
-(defn home-page [db]
+(defn home-page []
   [:div#content.content
    [:h2 "Home Page"]
    [sale-levels]])

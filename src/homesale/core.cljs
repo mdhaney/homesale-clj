@@ -4,30 +4,21 @@
             [homesale.ui.navbar :refer [navbar]]
             [secretary.core :as secretary :include-macros true :refer-macros [defroute]]
             [reagent.core :as reagent :refer [atom]]
-            [re-frame.core :refer [dispatch dispatch-sync]]
+            [re-frame.core :refer [dispatch dispatch-sync subscribe]]
             [goog.events :as events]
             [goog.history.EventType :as EventType])
     (:import goog.History))
 
 (enable-console-print!)
 
-; app state
-(def db (atom {}))
-
-
 ;;
 ;; Routes
 ;;
 (secretary/set-config! :prefix "#")
 
-(defroute home-route "/" []
-  (swap! db assoc :current-page :home))
-
-(defroute add-items-route "/items/add" []
-  (swap! db assoc :current-page :add-items))
-
-(defroute "*" []
-  (swap! db dissoc :current-page))
+(defroute home-route "/" [] (dispatch [:show-page :home]))
+(defroute add-items-route "/items/add" [] (dispatch [:show-page :add-items]))
+(defroute "*" [] (dispatch [:show-page nil]))
 
 
 ;; ----------
@@ -53,19 +44,19 @@
                           :uri (add-items-route)
                           :nav-order 1}})
 
-(defn app-page [db]
-  (let [current-page (:current-page @db)
-        page-render (get-in pages [current-page :render])]
-    [:div.container
-     [navbar pages current-page]
-     (if page-render
-       [page-render db]
-       [:h1 "404"])]))
-
+(defn app-page []
+  (let [current-page (subscribe [:current-page])]
+    (fn []
+      (let [page-render (:render @current-page)]
+        [:div.container
+         [navbar pages current-page]
+         (if page-render
+           [page-render]
+           [:h1 "404"])]))))
 
 (defn init! []
   (hook-browser-navigation!)
-  (dispatch-sync [:initialize-db])
-  (reagent/render [app-page db] (.getElementById js/document "app")))
+  (dispatch-sync [:initialize-db pages])
+  (reagent/render [app-page] (.getElementById js/document "app")))
 
 (init!)
