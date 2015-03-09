@@ -36,7 +36,8 @@
           [:div.collapse.navbar-collapse {:class (if @collapsed? "" "in")}
            [:ul.nav.navbar-nav
             (for [{:keys [text uri active?]} (navlinks page-defs current-page)]
-              [:li {:class (if active? "active" "")}
+              [:li {:key text
+                    :class (if active? "active" "")}
                [:a {:href uri
                     :on-click (fn [e]
                                 (reset! collapsed? true)

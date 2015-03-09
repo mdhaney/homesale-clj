@@ -48,8 +48,12 @@
                           :nav-order 1}})
 
 (defn app-page []
-  (let [current-page (subscribe [:current-page])]
+  (let [current-page (subscribe [:current-page])
+        auth (subscribe [:auth-data])]
     (fn []
+      #_(if @auth
+        [:p "authorized"]
+        [:p "unauthorized"])
       (let [page-render (:render @current-page)]
         [:div.container-fluid
          [navbar pages current-page]

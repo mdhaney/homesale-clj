@@ -8,6 +8,10 @@
      (assoc v :key k))
    m))
 
+(register-sub :auth-data
+  (fn [db _]
+    (reaction (:auth @db))))
+
 (register-sub :sale-levels
  (fn [db _]
    (reaction (merge-keys (:sale-levels @db)))))

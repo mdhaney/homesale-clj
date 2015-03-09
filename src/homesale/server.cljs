@@ -16,6 +16,14 @@
 (defn child [& paths]
   (apply child* base-ref paths))
 
+;;
+;; monitor firebase authentication
+;;
+(.onAuth base-ref
+  (fn [auth-data]
+    (if auth-data
+      (dispatch [:fb-auth (js->clj (.-auth auth-data) :keywordize-keys true)])
+      (dispatch [:fb-unauth]))))
 
 ;;
 ;; Firebase handlers

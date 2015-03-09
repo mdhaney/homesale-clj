@@ -1,6 +1,17 @@
 (ns homesale.handlers
   (:require [re-frame.core :refer [register-handler dispatch]]))
 
+;; firebase authentication
+(register-handler
+ :fb-auth
+ (fn [db [_ authdata]]
+   (assoc db :auth authdata)))
+
+(register-handler
+ :fb-unauth
+ (fn [db _]
+   (dissoc db :auth)))
+
 ;; firebase - sale level
 (register-handler
  :fb-level-added
