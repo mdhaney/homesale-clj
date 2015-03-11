@@ -41,16 +41,16 @@
 ;; Firebase handlers
 ;;
 (doto (child "users")
-  (.on "child_added" #(dispatch [:fb-user-added %1]))
-  (.on "child_changed" #(dispatch [:fb-user-changed %1]))
-  (.on "child_removed" #(dispatch [:fb-user-removed %1])))
+  (.on "child_added" #(dispatch [:fb-child-added :users %1]))
+  (.on "child_changed" #(dispatch [:fb-child-changed :users %1]))
+  (.on "child_removed" #(dispatch [:fb-child-removed :users %1])))
 
 (doto (child "sale-level")
-  (.on "child_added" #(dispatch [:fb-level-added %1]))
-  (.on "child_changed" #(dispatch [:fb-level-changed %1]))
-  (.on "child_removed" #(dispatch [:fb-level-removed %1])))
+  (.on "child_added" #(dispatch [:fb-child-added :sale-levels %1]))
+  (.on "child_changed" #(dispatch [:fb-child-changed :sale-levels %1]))
+  (.on "child_removed" #(dispatch [:fb-child-removed :sale-levels %1])))
 
 (doto (child "item-area")
-  (.on "child_added" #(dispatch [:fb-area-added %1]))
-  (.on "child_changed" #(dispatch [:fb-area-changed %1]))
-  (.on "child_removed" #(dispatch [:fb-area-removed %1])))
+  (.on "child_added" #(dispatch [:fb-child-added :item-areas %1]))
+  (.on "child_changed" #(dispatch [:fb-child-changed :item-areas %1]))
+  (.on "child_removed" #(dispatch [:fb-child-removed :item-areas %1])))
