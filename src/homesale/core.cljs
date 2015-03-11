@@ -47,19 +47,45 @@
                           :uri (items-route)
                           :nav-order 1}})
 
+(defn login-page []
+  (let [login-state (atom {:email "txmikester@gmail.com" :password ""})
+        processing? (subscribe [:login-processing])
+        error (subscribe [:login-error])]
+    (fn []
+      (let [{:keys [email password]} @login-state]
+        [:form
+         [:div.form-group
+          [:input.form-control {:type "email"
+                                :placeholder "Email address"
+                                :value email
+                                :on-change #(swap! login-state assoc :email (-> % .-target .-value))}]]
+         [:div.form-group
+          [:input.form-control {:type "password"
+                                :placeholder "Password"
+                                :value password
+                                :on-change #(swap! login-state assoc :password (-> % .-target .-value))}]]
+         [:div.login-buttons
+          (if @processing?
+            [:i.fa.fa-spinner.fa-spin.fa-2x]
+            [:button.btn.btn-default
+             {:on-click #(dispatch [:login-request (:email @login-state) (:password @login-state)] )}
+             "Sign In"])]
+         [:div.login-error
+          (when @error
+            [:p (str "Login error - " @error)])]]))))
+
 (defn app-page []
   (let [current-page (subscribe [:current-page])
         auth (subscribe [:auth-data])]
     (fn []
-      #_(if @auth
-        [:p "authorized"]
-        [:p "unauthorized"])
-      (let [page-render (:render @current-page)]
-        [:div.container-fluid
-         [navbar pages current-page]
-         (if page-render
-           [page-render]
-           [:h1 "404"])]))))
+      (if @auth
+        (let [page-render (:render @current-page)]
+          [:div.container-fluid
+           [navbar pages current-page]
+           (if page-render
+             [page-render]
+             [:h1 "404"])])
+        [login-page]))))
 
 (defn init! []
   (hook-browser-navigation!)

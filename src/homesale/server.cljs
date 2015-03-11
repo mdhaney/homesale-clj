@@ -26,6 +26,18 @@
       (dispatch [:fb-unauth]))))
 
 ;;
+;; Firebase authentication
+;;
+(defn login! [email password]
+  (.authWithPassword base-ref #js {:email email :password password}
+                     (fn [error auth-data]
+                       (dispatch [:fb-login-result error auth-data]))
+                     #js {:remember "sessionOnly"}))
+
+(defn logout! []
+  (.unauth base-ref))
+
+;;
 ;; Firebase handlers
 ;;
 (doto (child "sale-level")

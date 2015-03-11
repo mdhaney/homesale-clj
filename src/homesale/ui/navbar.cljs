@@ -1,5 +1,6 @@
 (ns homesale.ui.navbar
-  (:require [reagent.core :refer [atom]]))
+  (:require [reagent.core :refer [atom]]
+            [re-frame.core :refer [subscribe dispatch]]))
 
 (defn navlinks [pages current]
   (->> pages
@@ -25,7 +26,8 @@
    [:span.icon-bar]])
 
 (defn navbar [page-defs current-page]
-  (let [collapsed? (atom true)]
+  (let [collapsed? (atom true)
+        user (subscribe [:auth-user])]
     (fn [page-defs current-page]
       (let [home-page (:home page-defs)]
         [:nav.navbar.navbar-default
@@ -42,4 +44,7 @@
                     :on-click (fn [e]
                                 (reset! collapsed? true)
                                 nil)}
-                text]])]]]]))))
+                text]])]
+           [:span.pull-right
+            [:p.navbar-text (str "Signed in as " @user)]
+            [:button.btn.btn-primary.navbar-btn {:on-click #(dispatch [:logout])} "Logout"]]]]]))))
