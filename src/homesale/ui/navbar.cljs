@@ -46,5 +46,5 @@
                                 nil)}
                 text]])]
            [:span.pull-right
-            [:p.navbar-text (str "Signed in as " @user)]
+            [:p.navbar-text (str "Signed in as " (:name @user))]
             [:button.btn.btn-primary.navbar-btn {:on-click #(dispatch [:logout])} "Logout"]]]]]))))

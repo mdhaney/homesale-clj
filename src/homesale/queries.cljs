@@ -1,6 +1,6 @@
 (ns homesale.queries
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :refer [register-sub subscribe]]))
+  (:require [re-frame.core :refer [register-sub]]))
 
 (defn merge-keys [m]
   (mapv
@@ -8,14 +8,15 @@
      (assoc v :key k))
    m))
 
-(register-sub :auth-data
-  (fn [db _]
-    (reaction (:auth @db))))
-
 (register-sub :auth-user
-  (let [auth-data (subscribe [:auth-data])]
-    (fn [db _]
-      (reaction (:uid @auth-data)))))
+  (fn [db _]
+    (let [auth-data (reaction (:auth @db))
+          users (reaction (:users @db))]
+      (reaction (when (and @users @auth-data)
+                  (let [uid (:uid @auth-data)]
+                    (-> @users
+                        (get uid)
+                        (assoc :uid uid))))))))
 
 (register-sub :sale-levels
  (fn [db _]

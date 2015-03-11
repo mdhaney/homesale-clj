@@ -76,7 +76,7 @@
 
 (defn app-page []
   (let [current-page (subscribe [:current-page])
-        auth (subscribe [:auth-data])]
+        auth (subscribe [:auth-user])]
     (fn []
       (if @auth
         (let [page-render (:render @current-page)]

@@ -40,6 +40,11 @@
 ;;
 ;; Firebase handlers
 ;;
+(doto (child "users")
+  (.on "child_added" #(dispatch [:fb-user-added %1]))
+  (.on "child_changed" #(dispatch [:fb-user-changed %1]))
+  (.on "child_removed" #(dispatch [:fb-user-removed %1])))
+
 (doto (child "sale-level")
   (.on "child_added" #(dispatch [:fb-level-added %1]))
   (.on "child_changed" #(dispatch [:fb-level-changed %1]))

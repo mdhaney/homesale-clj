@@ -13,6 +13,22 @@
  (fn [db _]
    (dissoc db :auth)))
 
+;; firebase - users
+(register-handler
+ :fb-user-added
+ (fn [db [_ snapshot]]
+   (update-in db [:users] assoc (.key snapshot) (js->clj (.val snapshot) :keywordize-keys true))))
+
+(register-handler
+ :fb-user-changed
+ (fn [db [_ snapshot]]
+   (update-in db [:users] assoc (.key snapshot) (js->clj (.val snapshot) :keywordize-keys true))))
+
+(register-handler
+ :fb-user-removed
+ (fn [db [_ snapshot]]
+   (update-in db [:users] dissoc (.key snapshot))))
+
 ;; firebase - sale level
 (register-handler
  :fb-level-added
