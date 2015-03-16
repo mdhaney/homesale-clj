@@ -2,8 +2,6 @@
   (:require [re-frame.core :refer [subscribe dispatch]]))
 
 
-
-
 (defn item-areas []
   (let [areas (subscribe [:item-areas])]
     (fn []
@@ -13,9 +11,8 @@
           [:a {:href "#"} (:name area)]])])))
 
 (defn items-page []
-  [:div#content.content
-   [:div.row
-    [:div.col-md-3
-     [item-areas]]
-    [:div.col-md-9
-     [:h2 "Items"]]]])
+  (let [items (subscribe [:items])]
+    (fn []
+      [:div#content.content
+       [:h2 "Items"]
+       [:p (str @items)]])))

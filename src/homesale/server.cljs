@@ -54,3 +54,10 @@
   (.on "child_added" #(dispatch [:fb-child-added :item-areas %1]))
   (.on "child_changed" #(dispatch [:fb-child-changed :item-areas %1]))
   (.on "child_removed" #(dispatch [:fb-child-removed :item-areas %1])))
+
+(doto (child "items")
+  (.on "child_added" #(dispatch [:fb-child-added :items %1]))
+  (.on "child_changed" #(dispatch [:fb-child-changed :items %1]))
+  (.on "child_removed" #(dispatch [:fb-child-removed :items %1])))
+
+

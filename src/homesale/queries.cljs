@@ -20,13 +20,18 @@
 
 (register-sub :sale-levels
  (fn [db _]
-   (reaction (merge-keys (:sale-levels @db)))))
+   (let [levels (reaction (merge-keys (:sale-levels @db)))]
+     (reaction (reverse (sort-by :key @levels))))))
 
 (register-sub :current-page
  (fn [db _]
    (let [pages (reaction (:pages @db))
          current-page (reaction (:current-page @db))]
      (reaction (get @pages @current-page)))))
+
+(register-sub :items
+  (fn [db _]
+    (reaction (merge-keys (:items @db)))))
 
 (register-sub :item-areas
   (fn [db _]
