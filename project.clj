@@ -13,9 +13,13 @@
             [lein-httpd "1.0.0"]
             [lein-resource "14.10.1"]
             [lein-pdo "0.1.1"]
-            [fsrun "0.1.2"]]
+            [fsrun "0.1.2"]
+            [lein-less "1.7.2"]]
 
   :source-paths ["src"]
+
+  :less {:source-paths ["less"]
+         :target-path "static/css"}
 
   :clean-targets [:target-path :compile-path "static" "dist"]
 
@@ -44,7 +48,9 @@
                          :extra-values {:scripts [{:src "js/main.js"}]
                                         :repl true}}}
              :prod
-             {:resource {:resource-paths ["resources/public"]
+             {:less {:source-paths ["less"]
+                     :target-path "dist/css"}
+              :resource {:resource-paths ["resources/public"]
                          :target-path "dist"
                          :update false
                          :skip-stencil [ #"resources/public/assets/.*" ]
@@ -52,6 +58,6 @@
                                         :repl false}}}}
 
   :aliases {"watch-html" ["fschange" "resources/public/*" "resource"]
-            "watch-all"  ["pdo" "cljsbuild" "auto" "dev," "watch-html"]
-            "dist" ["with-profile" "prod" "do" "cljsbuild" "once" "prod," "resource"]})
+            "watch-all"  ["pdo" "cljsbuild" "auto" "dev," "less" "auto," "watch-html"]
+            "dist" ["with-profile" "prod" "do" "cljsbuild" "once" "prod," "less" "once," "resource"]})
 
