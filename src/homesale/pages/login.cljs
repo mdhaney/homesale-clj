@@ -14,20 +14,19 @@
           (when @error
             [:div.alert.alert-danger
              [:p (str @error)]])
-          [:form
-           [:div.form-group
-            [:input.form-control {:type "email"
-                                  :placeholder "Email address"
-                                  :value email
-                                  :on-change #(swap! login-state assoc :email (-> % .-target .-value))}]]
-           [:div.form-group
-            [:input.form-control {:type "password"
-                                  :placeholder "Password"
-                                  :value password
-                                  :on-change #(swap! login-state assoc :password (-> % .-target .-value))}]]
-           [:div
-            (if @processing?
-              [:div.text-center [:i.fa.fa-spinner.fa-spin.fa-2x]]
-              [:button.btn.btn-default.center-block
-               {:on-click #(dispatch [:login-request (:email @login-state) (:password @login-state)] )}
-               "Login"])]]]]))))
+          [:div.form-group
+           [:input.form-control {:type "email"
+                                 :placeholder "Email address"
+                                 :value email
+                                 :on-change #(swap! login-state assoc :email (-> % .-target .-value))}]]
+          [:div.form-group
+           [:input.form-control {:type "password"
+                                 :placeholder "Password"
+                                 :value password
+                                 :on-change #(swap! login-state assoc :password (-> % .-target .-value))}]]
+          [:div
+           (if @processing?
+             [:div.text-center [:i.fa.fa-spinner.fa-spin.fa-2x]]
+             [:button.btn.btn-default.center-block
+              {:on-click #(dispatch [:login-request (:email @login-state) (:password @login-state)] )}
+              "Login"])]]]))))

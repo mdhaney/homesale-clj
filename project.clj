@@ -4,7 +4,7 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2816"]
-                 [reagent "0.5.0-alpha3"]
+                 [reagent "0.5.0"]
                  [cljsjs/firebase "2.1.2-1"]
                  [re-frame "0.2.0"]
                  [secretary "1.2.1"]]
