@@ -8,11 +8,10 @@
         error (subscribe [:login-error])]
     (fn []
       (let [{:keys [email password]} @login-state]
-        [:div.container-fluid
-         [:div.center-block {:style {"width" "200px"
-                                     "marginTop" "50px"}}
+        [:div.page-container
+         [:div.login-container
           (when @error
-            [:div.alert.alert-danger
+            [:div.error
              [:p (str @error)]])
           [:div.form-group
            [:input.form-control {:type "email"

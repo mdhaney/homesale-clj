@@ -31,7 +31,6 @@
     (fn [page-defs current-page]
       (let [home-page (:home page-defs)]
         [:nav.navbar.navbar-default
-         [:div.container-fluid
           [:div.navbar-header
            [collapse-button collapsed?]
            [navbar-brand home-page]]
@@ -47,4 +46,4 @@
                 text]])]
            [:span.pull-right
             [:p.navbar-text (str "Signed in as " (:name @user))]
-            [:button.btn.btn-primary.navbar-btn {:on-click #(dispatch [:logout])} "Logout"]]]]]))))
+            [:button.btn.btn-primary.navbar-btn {:on-click #(dispatch [:logout])} "Logout"]]]]))))

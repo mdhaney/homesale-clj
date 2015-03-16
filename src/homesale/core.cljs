@@ -54,7 +54,7 @@
     (fn []
       (if @auth
         (let [page-render (:render @current-page)]
-          [:div.container-fluid
+          [:div.page-container
            [navbar pages current-page]
            (if page-render
              [page-render]
