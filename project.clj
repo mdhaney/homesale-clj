@@ -31,6 +31,7 @@
                               :compiler {:output-to "dist/js/main.min.js"
                                          :optimizations :advanced
                                          :elide-asserts true
+                                         :closure-defines {:goog.DEBUG false}
                                          :pretty-print  false}}}}
 
   :profiles {:dev
