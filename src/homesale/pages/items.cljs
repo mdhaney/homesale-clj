@@ -10,9 +10,19 @@
          [:li {:key (:key area)}
           [:a {:href "#"} (:name area)]])])))
 
-(defn items-page []
-  (let [items (subscribe [:items])]
+(defn item-detail [item]
+  [:p (str item)])
+
+(defn item-list []
+  (let [items (subscribe [:items])
+        areas (subscribe [:area-map])
+        levels (subscribe [:level-map])]
     (fn []
-      [:div#content.content
-       [:h2 "Items"]
-       [:p (str @items)]])))
+      [:div.item-list
+       (for [item @items]
+         [item-detail item])])))
+
+(defn items-page []
+  [:div#content.content
+   [:h2 "Items"]
+   [item-list]])

@@ -23,6 +23,10 @@
    (let [levels (reaction (merge-keys (:sale-levels @db)))]
      (reaction (reverse (sort-by :key @levels))))))
 
+(register-sub :level-map
+ (fn [db _]
+   (reaction (:sale-levels @db))))
+
 (register-sub :current-page
  (fn [db _]
    (let [pages (reaction (:pages @db))
@@ -37,6 +41,10 @@
   (fn [db _]
     (let [areas (reaction (merge-keys (:item-areas @db)))]
       (reaction (sort-by :name @areas)))))
+
+(register-sub :area-map
+ (fn [db _]
+   (reaction (:item-areas @db))))
 
 (register-sub :login-processing
   (fn [db _]
