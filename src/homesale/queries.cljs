@@ -42,6 +42,10 @@
     (let [areas (reaction (merge-keys (:item-areas @db)))]
       (reaction (sort-by :name @areas)))))
 
+(register-sub :new-item
+  (fn [db _]
+    (reaction (:new-item @db))))
+
 (register-sub :area-map
  (fn [db _]
    (reaction (:item-areas @db))))

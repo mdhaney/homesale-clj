@@ -101,3 +101,18 @@
        (assoc-in [:login :error] (when error
                                    (.-message error))))))
 
+;;
+;; new items
+;;
+(register-handler
+ :new-item-name-changed
+ standard-middlewares
+ (fn [db [_ name]]
+   (assoc-in db [:new-item :name] name)))
+
+(register-handler
+ :new-item-add
+ standard-middlewares
+ (fn [db _]
+   (update-in db [:new-item] dissoc :name)))
+
